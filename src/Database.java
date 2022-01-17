@@ -93,12 +93,34 @@ public class Database {
             }
 
             count++;
-        };
+        }
+        ;
 
         Files.writeString(path, stringClientes);
     }
 
-    public static String getNomeCliente(String cpf) {
+    public static boolean existeCliente(String cpf) {
+        return clientes.containsKey(cpf);
+    }
+
+    public static void addCliente() {
+        // TODO Preciso da classe Cliente antes de criar o método addCliente
+    }
+
+    public static void delCliente(String cpf) throws Exception {
+        if (existeCliente(cpf)) {
+            clientes.remove(cpf);
+            salvarClientes();
+        } else {
+            throw new IllegalArgumentException("Cliente não existe");
+        }
+    }
+
+    public static String getNomeCliente(String cpf) throws Exception {
+        if (!existeCliente(cpf)) {
+            throw new Exception("Cliente não encontrado");
+        }
+
         Object info = clientes.get(cpf).get(0);
         String[] infoCliente = info.toString().replace("[", "").replace("]", "").split(",");
         String nome = infoCliente[0];
@@ -110,7 +132,11 @@ public class Database {
         return nome;
     }
 
-    public static String getDataNascimentoCliente(String cpf) {
+    public static String getDataNascimentoCliente(String cpf) throws Exception {
+        if (!existeCliente(cpf)) {
+            throw new Exception("Cliente não encontrado");
+        }
+
         Object info = clientes.get(cpf).get(0);
         String[] infoCliente = info.toString().replace("[", "").replace("]", "").split(",");
         String dataNascimento = infoCliente[1];
@@ -122,7 +148,11 @@ public class Database {
         return dataNascimento;
     }
 
-    public static Map<String, String> getEnderecoCliente(String cpf) {
+    public static Map<String, String> getEnderecoCliente(String cpf) throws Exception {
+        if (!existeCliente(cpf)) {
+            throw new Exception("Cliente não encontrado");
+        }
+
         Object info = clientes.get(cpf).get(1);
         String[] infoCliente = info.toString().replace("[", "").replace("]", "").split(",");
 
@@ -144,6 +174,75 @@ public class Database {
         };
 
         return endereco;
+    }
+
+    public static void setNomeCliente(String cpf, String nome) throws Exception {
+        if (!existeCliente(cpf)) {
+            throw new Exception("Cliente não encontrado");
+        }
+
+        Object info = clientes.get(cpf).get(0);
+        String[] infoCliente = info.toString().replace("[", "").replace("]", "").split(",");
+        infoCliente[0] = nome;
+
+        ArrayList<String> newInfo = new ArrayList<>();
+
+        while (infoCliente[0].startsWith(" ")) {
+            infoCliente[0] = infoCliente[0].substring(1);
+        }
+
+        while (infoCliente[1].startsWith(" ")) {
+            infoCliente[1] = infoCliente[1].substring(1);
+        }
+
+        newInfo.add(infoCliente[0]);
+        newInfo.add(infoCliente[1]);
+
+        clientes.get(cpf).set(0, newInfo);
+        salvarClientes();
+    }
+
+    public static void setDataNascimentoCliente(String cpf, String data) throws Exception {
+        if (!existeCliente(cpf)) {
+            throw new Exception("Cliente não encontrado");
+        }
+
+        Object info = clientes.get(cpf).get(0);
+        String[] infoCliente = info.toString().replace("[", "").replace("]", "").split(",");
+        infoCliente[1] = data;
+
+        ArrayList<String> newInfo = new ArrayList<>();
+
+        while (infoCliente[0].startsWith(" ")) {
+            infoCliente[0] = infoCliente[0].substring(1);
+        }
+
+        while (infoCliente[1].startsWith(" ")) {
+            infoCliente[1] = infoCliente[1].substring(1);
+        }
+
+        newInfo.add(infoCliente[0]);
+        newInfo.add(infoCliente[1]);
+
+        clientes.get(cpf).set(0, newInfo);
+        salvarClientes();
+    }
+
+    public static void setEnderecoCliente(String cpf) throws Exception {
+        if (!existeCliente(cpf)) {
+            throw new Exception("Cliente não encontrado");
+        }
+
+        Object info = clientes.get(cpf).get(1);
+        String[] infoCliente = info.toString().replace("[", "").replace("]", "").split(",");
+
+        for (int i = 0; i < infoCliente.length; i++) {
+            while (infoCliente[i].startsWith(" ")) {
+                infoCliente[i] = infoCliente[i].substring(1);
+            }
+        }
+
+        // TODO Preciso da classe Endereco antes de criar o método setEnderecoCliente
 
     }
 
