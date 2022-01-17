@@ -1,25 +1,23 @@
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Jogo {
   private String nomeTimeA;
   private String nomeTimeB;
   private LocalDateTime data;
-  private double valorVitóriaA;
-  private double valorVitóriaB;
+  private double valorVitoriaA;
+  private double valorVitoriaB;
   private double valorEmpate;
   private int apostasA;
   private int apostasB;
   private double totalApostado;
 
-  public Jogo(  String nomeTimeA, String nomeTimeB, LocalDateTime data, double valorVitóriaA, double valorVitóriaB,
+  public Jogo(  String nomeTimeA, String nomeTimeB, LocalDateTime data, double valorVitoriaA, double valorVitoriaB,
       double valorEmpate, int apostasA, int apostasB, double totalApostado) {
     this.nomeTimeA = nomeTimeA;
     this.nomeTimeB = nomeTimeB;
     this.data = data;
-    this.valorVitóriaA = valorVitóriaA;
-    this.valorVitóriaB = valorVitóriaB;
+    this.valorVitoriaA = valorVitoriaA;
+    this.valorVitoriaB = valorVitoriaB;
     this.valorEmpate = valorEmpate;
     this.apostasA = apostasA;
     this.apostasB = apostasB;
@@ -50,20 +48,20 @@ public class Jogo {
     this.data = data;
   }
 
-  public double getValorVitóriaA() {
-    return valorVitóriaA;
+  public double getValorVitoriaA() {
+    return valorVitoriaA;
   }
 
-  public void setValorVitóriaA(double valorVitóriaA) {
-    this.valorVitóriaA = valorVitóriaA;
+  public void setValorVitoriaA(double valorVitoriaA) {
+    this.valorVitoriaA = valorVitoriaA;
   }
 
-  public double getValorVitóriaB() {
-    return valorVitóriaB;
+  public double getValorVitoriaB() {
+    return valorVitoriaB;
   }
 
-  public void setValorVitóriaB(double valorVitóriaB) {
-    this.valorVitóriaB = valorVitóriaB;
+  public void setValorVitoriaB(double valorVitoriaB) {
+    this.valorVitoriaB = valorVitoriaB;
   }
 
   public double getValorEmpate() {
