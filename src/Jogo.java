@@ -1,6 +1,8 @@
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Jogo {
+  private String id;
   private String nomeTimeA;
   private String nomeTimeB;
   private LocalDateTime data;
@@ -9,10 +11,12 @@ public class Jogo {
   private double valorEmpate;
   private int apostasA;
   private int apostasB;
+  private int apostasEmpate;
   private double totalApostado;
 
-  public Jogo(  String nomeTimeA, String nomeTimeB, LocalDateTime data, double valorVitoriaA, double valorVitoriaB,
-      double valorEmpate, int apostasA, int apostasB, double totalApostado) {
+  public Jogo(String nomeTimeA, String nomeTimeB, LocalDateTime data, double valorVitoriaA,
+      double valorVitoriaB, double valorEmpate, int apostasA, int apostasB, int apostasEmpate, double totalApostado) {
+    this.id = String.format("%s-%s-%s", nomeTimeA, nomeTimeB, data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy-HH;mm")));
     this.nomeTimeA = nomeTimeA;
     this.nomeTimeB = nomeTimeB;
     this.data = data;
@@ -21,7 +25,12 @@ public class Jogo {
     this.valorEmpate = valorEmpate;
     this.apostasA = apostasA;
     this.apostasB = apostasB;
+    this.apostasEmpate = apostasEmpate;
     this.totalApostado = totalApostado;
+  }
+
+  public String getId() {
+    return id;
   }
 
   public String getNomeTimeA() {
@@ -86,6 +95,14 @@ public class Jogo {
 
   public void setApostasB(int apostasB) {
     this.apostasB = apostasB;
+  }
+
+  public int getApostasEmpate() {
+    return apostasEmpate;
+  }
+
+  public void setApostasEmpate(int apostasEmpate) {
+    this.apostasEmpate = apostasEmpate;
   }
 
   public double getTotalApostado() {
