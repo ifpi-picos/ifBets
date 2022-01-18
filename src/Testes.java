@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -6,12 +7,13 @@ public class Testes {
         Database.carregarClientes();
         Database.carregarJogos();
 
-        Boolean testarCliente = true;
-        Boolean testarJogo = true;
+        Boolean testarCliente = false;
+        Boolean testarJogo = false;
 
         if (testarCliente) {
-            // Getters Cliente
+            //Getters Cliente
             System.out.println(Database.getNomeCliente("11122233300"));
+            System.out.println(Database.getEmailCliente("11122233300"));
             System.out.println(Database.getDataNascimentoCliente("11122233300"));
             Map<String, String> endereco = Database.getEnderecoCliente("11122233300");
 
@@ -24,11 +26,12 @@ public class Testes {
 
             // Setters Cliente
             Database.setNomeCliente("11122233300", "Alan Leal");
+            Database.setEmailCliente("11122233300", "bbb@hotmail.com");
             Database.setDataNascimentoCliente("11122233300", "00/00/0000");
-            // Falta a classe Endereco para setar o endereco
+            Database.setEnderecoCliente("11122233300", new Endereco("apartamento", "picos", "centro", "rua", 0, "pi"));
 
-            // Falta a classe Cliente para adiconar um cliente
-            // Database.delCliente("11122233300");
+            Database.addCliente(new Cliente("22233344400", "Teste teste", "teste@hotmail.com", LocalDate.of(2000, 01, 01), new Endereco("apartamento", "picos", "centro", "rua", 0, "pi")));
+            Database.delCliente("22233344400");
         }
 
         if (testarJogo) {

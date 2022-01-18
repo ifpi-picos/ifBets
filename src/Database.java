@@ -28,7 +28,7 @@ public class Database {
             for (int i = 0; i < infoCliente.length; i++) {
                 String[] info = infoCliente[i].split(":");
 
-                if (i < 3) {
+                if (i < 4) {
                     valores.add(info[1]);
                 } else {
                     endereco.add(info[1]);
@@ -66,7 +66,13 @@ public class Database {
                 nome = nome.substring(1);
             }
 
-            String dataNascimento = info[0].replace("[[", "").split(",")[1];
+            String email = info[0].replace("[[", "").split(",")[1];
+
+            while (email.startsWith(" ")) {
+                email = email.substring(1);
+            }
+
+            String dataNascimento = info[0].replace("[[", "").split(",")[2];
 
             while (dataNascimento.startsWith(" ")) {
                 dataNascimento = dataNascimento.substring(1);
@@ -87,8 +93,8 @@ public class Database {
             }
 
             stringClientes += String.format(
-                    "{cpf:%s, nome:%s, dataDeNascimento:%s, endereco = logradouro:%s, cidade:%s, bairro:%s, rua:%s, numero:%s, uf:%s}",
-                    cpf, nome, dataNascimento, endereco[0], endereco[1], endereco[2], endereco[3], endereco[4],
+                    "{cpf:%s, nome:%s, email:%s, dataDeNascimento:%s, endereco = logradouro:%s, cidade:%s, bairro:%s, rua:%s, numero:%s, uf:%s}",
+                    cpf, nome, email, dataNascimento, endereco[0], endereco[1], endereco[2], endereco[3], endereco[4],
                     endereco[5]);
 
             if (count < entrySet.size() - 1) {
@@ -106,8 +112,33 @@ public class Database {
         return clientes.containsKey(cpf);
     }
 
-    public static void addCliente() {
-        // TODO Preciso da classe Cliente antes de criar o método addCliente
+    public static void addCliente(Cliente cliente) throws Exception {
+        String cpf = String.format("%s", cliente.getCpf().replace("-", "").replace(".", ""));
+        
+        if(existeCliente(cpf)){
+            throw new Exception("Cliente já existe");
+        }
+
+        ArrayList<String> valores = new ArrayList<>();
+        ArrayList<String> endereco = new ArrayList<>();
+
+        valores.add(cliente.getNome());
+        valores.add(cliente.getEmail());
+        valores.add(cliente.getDataDeNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        endereco.add(cliente.getEndereco().getLogradouro());
+        endereco.add(cliente.getEndereco().getCidade());
+        endereco.add(cliente.getEndereco().getBairro());
+        endereco.add(cliente.getEndereco().getRua());
+        endereco.add(String.format("%s", cliente.getEndereco().getNumero()));
+        endereco.add(cliente.getEndereco().getUf());
+
+        ArrayList<ArrayList<String>> data = new ArrayList<>();
+
+        data.add(valores);
+        data.add(endereco);
+
+        clientes.put(cpf, data);
+        salvarClientes();
     }
 
     public static void delCliente(String cpf) throws Exception {
@@ -135,6 +166,22 @@ public class Database {
         return nome;
     }
 
+    public static String getEmailCliente(String cpf) throws Exception {
+        if (!existeCliente(cpf)) {
+            throw new Exception("Cliente não encontrado");
+        }
+
+        Object info = clientes.get(cpf).get(0);
+        String[] infoCliente = info.toString().replace("[", "").replace("]", "").split(",");
+        String email = infoCliente[1];
+
+        while (email.startsWith(" ")) {
+            email = email.substring(1);
+        }
+
+        return email;
+    }
+
     public static String getDataNascimentoCliente(String cpf) throws Exception {
         if (!existeCliente(cpf)) {
             throw new Exception("Cliente não encontrado");
@@ -142,7 +189,7 @@ public class Database {
 
         Object info = clientes.get(cpf).get(0);
         String[] infoCliente = info.toString().replace("[", "").replace("]", "").split(",");
-        String dataNascimento = infoCliente[1];
+        String dataNascimento = infoCliente[2];
 
         while (dataNascimento.startsWith(" ")) {
             dataNascimento = dataNascimento.substring(1);
@@ -198,8 +245,13 @@ public class Database {
             infoCliente[1] = infoCliente[1].substring(1);
         }
 
+        while (infoCliente[2].startsWith(" ")) {
+            infoCliente[2] = infoCliente[2].substring(1);
+        }
+
         newInfo.add(infoCliente[0]);
         newInfo.add(infoCliente[1]);
+        newInfo.add(infoCliente[2]);
 
         clientes.get(cpf).set(0, newInfo);
         salvarClientes();
@@ -212,7 +264,7 @@ public class Database {
 
         Object info = clientes.get(cpf).get(0);
         String[] infoCliente = info.toString().replace("[", "").replace("]", "").split(",");
-        infoCliente[1] = data;
+        infoCliente[2] = data;
 
         ArrayList<String> newInfo = new ArrayList<>();
 
@@ -224,29 +276,71 @@ public class Database {
             infoCliente[1] = infoCliente[1].substring(1);
         }
 
+        while (infoCliente[2].startsWith(" ")) {
+            infoCliente[2] = infoCliente[2].substring(1);
+        }
+
         newInfo.add(infoCliente[0]);
         newInfo.add(infoCliente[1]);
+        newInfo.add(infoCliente[2]);
 
         clientes.get(cpf).set(0, newInfo);
         salvarClientes();
     }
 
-    public static void setEnderecoCliente(String cpf) throws Exception {
+    public static void setEmailCliente(String cpf, String email) throws Exception {
         if (!existeCliente(cpf)) {
             throw new Exception("Cliente não encontrado");
         }
 
-        Object info = clientes.get(cpf).get(1);
+        Object info = clientes.get(cpf).get(0);
         String[] infoCliente = info.toString().replace("[", "").replace("]", "").split(",");
+        infoCliente[1] = email;
 
-        for (int i = 0; i < infoCliente.length; i++) {
-            while (infoCliente[i].startsWith(" ")) {
-                infoCliente[i] = infoCliente[i].substring(1);
+        ArrayList<String> newInfo = new ArrayList<>();
+
+        while (infoCliente[0].startsWith(" ")) {
+            infoCliente[0] = infoCliente[0].substring(1);
+        }
+
+        while (infoCliente[1].startsWith(" ")) {
+            infoCliente[1] = infoCliente[1].substring(1);
+        }
+
+        while (infoCliente[2].startsWith(" ")) {
+            infoCliente[2] = infoCliente[2].substring(1);
+        }
+
+        newInfo.add(infoCliente[0]);
+        newInfo.add(infoCliente[1]);
+        newInfo.add(infoCliente[2]);
+
+        clientes.get(cpf).set(0, newInfo);
+        salvarClientes();
+    }
+
+    public static void setEnderecoCliente(String cpf, Endereco endereco) throws Exception {
+        if (!existeCliente(cpf)) {
+            throw new Exception("Cliente não encontrado");
+        }
+
+        ArrayList<String> novoEndereco = new ArrayList<>();
+
+        novoEndereco.add(endereco.getLogradouro());
+        novoEndereco.add(endereco.getCidade());
+        novoEndereco.add(endereco.getBairro());
+        novoEndereco.add(endereco.getRua());
+        novoEndereco.add(String.format("%s", endereco.getNumero()));
+        novoEndereco.add(endereco.getUf());
+
+        for (int i = 0; i < novoEndereco.size(); i++) {
+            while (novoEndereco.get(i).startsWith(" ")) {
+                novoEndereco.set(i, novoEndereco.get(i).substring(1));
             }
         }
 
-        // TODO Preciso da classe Endereco antes de criar o método setEnderecoCliente
-
+        clientes.get(cpf).set(1, novoEndereco);
+        salvarClientes();
     }
 
     public static void carregarJogos() throws IOException {
