@@ -63,4 +63,8 @@ public class Endereco {
         this.uf = uf;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s, %s, %s, %s, %s, %s", logradouro, cidade, bairro, rua, numero, uf);
+    }
 }

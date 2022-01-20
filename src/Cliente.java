@@ -7,8 +7,6 @@ public class Cliente {
     private LocalDate dataDeNascimento;
     private Endereco endereco;
 
-
-
     public Cliente(String cpf, String nome, String email, LocalDate dataDeNascimento, Endereco endereco) {
         this.cpf = cpf;
         this.nome = nome;
@@ -56,5 +54,10 @@ public class Cliente {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s, %s, %s, %s, %s", cpf, nome, email, dataDeNascimento, endereco.toString());
     }
 }
