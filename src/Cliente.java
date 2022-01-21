@@ -1,19 +1,18 @@
 import java.time.LocalDate;
 
 public class Cliente {
-    private String nome;
     private String cpf;
+    private String nome;
     private String email;
     private LocalDate dataDeNascimento;
     private Endereco endereco;
 
-
-
-    public Cliente(String nome, String cpf, String email, LocalDate dataDeNascimento, Endereco endereco) {
+    public Cliente(String cpf, String nome, String email, LocalDate dataDeNascimento, Endereco endereco) {
         this.cpf = cpf;
         this.nome = nome;
         this.email = email;
         this.dataDeNascimento = dataDeNascimento;
+        this.endereco = endereco;
 
     }
 
@@ -55,5 +54,10 @@ public class Cliente {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s, %s, %s, %s, %s", cpf, nome, email, dataDeNascimento, endereco.toString());
     }
 }

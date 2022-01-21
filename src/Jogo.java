@@ -2,7 +2,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Jogo {
-  private String id;
   private String nomeTimeA;
   private String nomeTimeB;
   private LocalDateTime data;
@@ -16,7 +15,6 @@ public class Jogo {
 
   public Jogo(String nomeTimeA, String nomeTimeB, LocalDateTime data, double valorVitoriaA,
       double valorVitoriaB, double valorEmpate, int apostasA, int apostasB, int apostasEmpate, double totalApostado) {
-    this.id = String.format("%s-%s-%s", nomeTimeA, nomeTimeB, data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy-HH;mm")));
     this.nomeTimeA = nomeTimeA;
     this.nomeTimeB = nomeTimeB;
     this.data = data;
@@ -27,10 +25,6 @@ public class Jogo {
     this.apostasB = apostasB;
     this.apostasEmpate = apostasEmpate;
     this.totalApostado = totalApostado;
-  }
-
-  public String getId() {
-    return id;
   }
 
   public String getNomeTimeA() {
@@ -111,6 +105,13 @@ public class Jogo {
 
   public void setTotalApostado(double totalApostado) {
     this.totalApostado = totalApostado;
+  }
+
+  @Override
+  public String toString() {
+    return String.format("%s, %s, %s, %s, %s, %s, %s, %s, %s, %s",
+        nomeTimeA, nomeTimeB, data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")),
+        valorVitoriaA, valorVitoriaB, valorEmpate, apostasA, apostasB, apostasEmpate, totalApostado);
   }
 
 }

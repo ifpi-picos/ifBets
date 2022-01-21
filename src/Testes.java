@@ -1,66 +1,28 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Map;
+import java.util.List;
 
 public class Testes {
     public static void run() throws Exception {
         Database.carregarClientes();
         Database.carregarJogos();
 
-        Boolean testarCliente = true;
-        Boolean testarJogo = true;
+        Database.addCliente(new Cliente("22233344400", "Teste teste", "teste@hotmail.com", LocalDate.of(2000, 01, 01), new Endereco("apartamento", "picos", "centro", "rua", 0, "pi")));
+        Cliente cliente = Database.getClienteByCPF("22233344400");
+        System.out.println(cliente.getNome());
+        cliente.setNome("Alan");
+        Database.editCliente(cliente);
+        //Database.delCliente(cliente);
+        List<Cliente> clientes = Database.getClientes();
+        System.out.println(clientes);
 
-        if (testarCliente) {
-            // Getters Cliente
-            System.out.println(Database.getNomeCliente("11122233300"));
-            System.out.println(Database.getDataNascimentoCliente("11122233300"));
-            Map<String, String> endereco = Database.getEnderecoCliente("11122233300");
-
-            System.out.println(endereco.get("logradouro"));
-            System.out.println(endereco.get("cidade"));
-            System.out.println(endereco.get("bairro"));
-            System.out.println(endereco.get("rua"));
-            System.out.println(endereco.get("numero"));
-            System.out.println(endereco.get("uf"));
-
-            // Setters Cliente
-            Database.setNomeCliente("11122233300", "Alan Leal");
-            Database.setDataNascimentoCliente("11122233300", "00/00/0000");
-            // Falta a classe Endereco para setar o endereco
-
-            // Falta a classe Cliente para adiconar um cliente
-            // Database.delCliente("11122233300");
-        }
-
-        if (testarJogo) {
-            // Getters Jogo
-            Map<String, String> jogo = Database.getJogo("timeA-timeB-Dia");
-
-            System.out.println(jogo.get("nomeTimeA"));
-            System.out.println(jogo.get("nomeTimeB"));
-            System.out.println(jogo.get("data"));
-            System.out.println(jogo.get("valorVitoriaA"));
-            System.out.println(jogo.get("valorVitoriaB"));
-            System.out.println(jogo.get("valorEmpate"));
-            System.out.println(jogo.get("apostasA"));
-            System.out.println(jogo.get("apostasB"));
-            System.out.println(jogo.get("totalApostado"));
-
-            // Setters Jogo
-            Database.setNomeTimeAJogo("timeA-timeB-Dia", "timeA");
-            Database.setNomeTimeBJogo("timeA-timeB-Dia", "timeB");
-            Database.setDataJogo("timeA-timeB-Dia", "00/00/0000-00;00");
-            Database.setValorVitoriaAJogo("timeA-timeB-Dia", "1.03");
-            Database.setValorVitoriaBJogo("timeA-timeB-Dia", "1.30");
-            Database.setValorEmpateJogo("timeA-timeB-Dia", "0.0");
-            Database.setApostasAJogo("timeA-timeB-Dia", "0");
-            Database.setApostasBJogo("timeA-timeB-Dia", "0");
-            Database.setTotalApostadoJogo("timeA-timeB-Dia", "0.0");
-
-            Jogo novoJogo = new Jogo("timeA", "timeB", LocalDateTime.now(), 1.33, 1.33, 1.33, 5, 5, 5, 0.0);
-
-            Database.addJogo(novoJogo);
-            Database.delJogo(novoJogo.getId());
-            Database.salvarJogos();
-        }
+        Database.addJogo(new Jogo("testeA", "testeB", LocalDateTime.of(2022, 01, 21, 15, 0, 0), 0.0, 0.0, 0.0, 0, 0, 0, 0));
+        Jogo jogo = Database.getJogoByNome("testeA", "testeB");
+        System.out.println(jogo.getNomeTimeB());
+        jogo.setNomeTimeB("B");
+        Database.editJogo(jogo);
+        //Database.delJogo(jogo);
+        List<Jogo> jogos = Database.getJogos();
+        System.out.println(jogos);
     }
 }
