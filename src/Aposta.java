@@ -39,12 +39,20 @@ public class Aposta {
     this.cliente = cliente;
   }
 
-  public String getEscolha() {
-    return escolha;
+  public String getTimeEscolhido() {
+    return timeEscolhido;
   }
 
-  public void setEscolha(String escolha) {
-    this.escolha = escolha;
+  public void setTimeEscolhido(String timeEscolhido) {
+    this.timeEscolhido = timeEscolhido;
+  }
+
+  public Number getValorApostado() {
+    return valorApostado;
+  }
+
+  public void setValorApostado(Number valorApostado) {
+    this.valorApostado = valorApostado;
   }
 
 }
