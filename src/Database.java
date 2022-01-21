@@ -75,6 +75,10 @@ public class Database {
         return null;
     }
 
+    public static List<Cliente> getClientes() {
+        return clientes;
+    }
+
     // Jogo
     public static void carregarJogos() throws Exception {
         String stringJogos = Files.readString(localJogos);
@@ -135,5 +139,9 @@ public class Database {
             }
         }
         return null;
+    }
+
+    public static List<Jogo> getJogos() {
+        return jogos;
     }
 }

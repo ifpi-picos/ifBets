@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Testes {
     public static void run() throws Exception {
@@ -12,6 +13,8 @@ public class Testes {
         cliente.setNome("Alan");
         Database.editCliente(cliente);
         //Database.delCliente(cliente);
+        List<Cliente> clientes = Database.getClientes();
+        System.out.println(clientes);
 
         Database.addJogo(new Jogo("testeA", "testeB", LocalDateTime.of(2022, 01, 21, 15, 0, 0), 0.0, 0.0, 0.0, 0, 0, 0, 0));
         Jogo jogo = Database.getJogoByNome("testeA", "testeB");
@@ -19,5 +22,7 @@ public class Testes {
         jogo.setNomeTimeB("B");
         Database.editJogo(jogo);
         //Database.delJogo(jogo);
+        List<Jogo> jogos = Database.getJogos();
+        System.out.println(jogos);
     }
 }
