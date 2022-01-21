@@ -4,13 +4,15 @@ public class Aposta {
   private LocalDateTime data;
   private Jogo jogo;
   private Cliente cliente;
-  private String escolha;
+  private String timeEscolhido;
+  private Number valorApostado;
 
-  public Aposta(LocalDateTime data, Jogo jogo, Cliente cliente, String escolha) {
+  public Aposta(LocalDateTime data, Jogo jogo, Cliente cliente, String timeEscolhido, Number valorApostado) {
     this.data = data;
     this.jogo = jogo;
     this.cliente = cliente;
-    this.escolha = escolha;
+    this.timeEscolhido = timeEscolhido;
+    this.valorApostado = valorApostado;
   }
 
   public LocalDateTime getData() {
