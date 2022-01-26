@@ -7,7 +7,9 @@ public class Testes {
         Database.carregarClientes();
         Database.carregarJogos();
 
-        Database.addCliente(new Cliente("22233344400", "Teste teste", "teste@hotmail.com", LocalDate.of(2000, 01, 01), new Endereco("apartamento", "picos", "centro", "rua", 0, "pi")));
+        Database.addCliente(new Cliente("22233344400", "Teste teste",
+        "teste@hotmail.com", LocalDate.of(2000, 01, 01), new Endereco("apartamento",
+        "picos", "centro", "rua", 0, "pi")));
         Cliente cliente = Database.getClienteByCPF("22233344400");
         System.out.println(cliente.getNome());
         cliente.setNome("Alan");
@@ -16,7 +18,8 @@ public class Testes {
         List<Cliente> clientes = Database.getClientes();
         System.out.println(clientes);
 
-        Database.addJogo(new Jogo("testeA", "testeB", LocalDateTime.of(2022, 01, 21, 15, 0, 0), 0.0, 0.0, 0.0, 0, 0, 0, 0));
+        Database.addJogo(new Jogo("testeA", "testeB", LocalDateTime.of(2022, 01, 21,
+        15, 0, 0), 0.0, 0.0, 0.0, 0, 0, 0, 0));
         Jogo jogo = Database.getJogoByNome("testeA", "testeB");
         System.out.println(jogo.getNomeTimeB());
         jogo.setNomeTimeB("B");
@@ -24,5 +27,6 @@ public class Testes {
         //Database.delJogo(jogo);
         List<Jogo> jogos = Database.getJogos();
         System.out.println(jogos);
+
     }
 }

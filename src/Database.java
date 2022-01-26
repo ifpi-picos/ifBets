@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Database {
-    private static Path localClientes = Path.of("resources/clientes.ifbets");
-    private static Path localJogos = Path.of("resources/jogos.ifbets");
+    private static Path localClientes = Path.of("resources/database/clientes.ifbets");
+    private static Path localJogos = Path.of("resources/database/jogos.ifbets");
     private static List<Cliente> clientes = new ArrayList<Cliente>(0);
     private static List<Jogo> jogos = new ArrayList<Jogo>(0);
 
@@ -66,6 +66,7 @@ public class Database {
     }
 
     public static Cliente getClienteByCPF(String cpf) {
+        cpf = cpf.replace(".", "").replace("-", "");
         for (Cliente cliente : clientes) {
             if (cliente.getCpf().equals(cpf)) {
                 return cliente;
@@ -144,4 +145,7 @@ public class Database {
     public static List<Jogo> getJogos() {
         return jogos;
     }
+
+
+
 }
