@@ -13,7 +13,6 @@ public class Cliente {
         this.email = email;
         this.dataDeNascimento = dataDeNascimento;
         this.endereco = endereco;
-
     }
 
     public String getCpf() {

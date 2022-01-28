@@ -4,6 +4,7 @@ public class App {
         Database.carregarJogos();
         Database.carregarApostas();
         //Testes.run();
-        Interface.run();
+        Interface interfaceUsuario = new Interface();
+        Administrador.run(interfaceUsuario);
     }
 }
