@@ -1,13 +1,14 @@
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Aposta {
   private LocalDateTime data;
   private Jogo jogo;
   private Cliente cliente;
   private String timeEscolhido;
-  private Number valorApostado;
+  private Double valorApostado;
 
-  public Aposta(LocalDateTime data, Jogo jogo, Cliente cliente, String timeEscolhido, Number valorApostado) {
+  public Aposta(LocalDateTime data, Jogo jogo, Cliente cliente, String timeEscolhido, Double valorApostado) {
     this.data = data;
     this.jogo = jogo;
     this.cliente = cliente;
@@ -47,12 +48,16 @@ public class Aposta {
     this.timeEscolhido = timeEscolhido;
   }
 
-  public Number getValorApostado() {
+  public Double getValorApostado() {
     return valorApostado;
   }
 
-  public void setValorApostado(Number valorApostado) {
+  public void setValorApostado(Double valorApostado) {
     this.valorApostado = valorApostado;
   }
 
+  @Override
+  public String toString() {
+    return String.format("%s, %s, %s, %s, %s", data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), jogo.getNomeTimeA()+":"+jogo.getNomeTimeB(), cliente.getCpf(), timeEscolhido, valorApostado);
+  }
 }

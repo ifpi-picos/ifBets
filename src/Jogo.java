@@ -11,10 +11,11 @@ public class Jogo {
   private int apostasA;
   private int apostasB;
   private int apostasEmpate;
-  private double totalApostado;
+  private double totalApostadoA;
+  private double totalApostadoB;
 
   public Jogo(String nomeTimeA, String nomeTimeB, LocalDateTime data, double valorVitoriaA,
-      double valorVitoriaB, double valorEmpate, int apostasA, int apostasB, int apostasEmpate, double totalApostado) {
+      double valorVitoriaB, double valorEmpate, int apostasA, int apostasB, int apostasEmpate, double totalApostadoA, double totalApostadoB) {
     this.nomeTimeA = nomeTimeA;
     this.nomeTimeB = nomeTimeB;
     this.data = data;
@@ -24,7 +25,8 @@ public class Jogo {
     this.apostasA = apostasA;
     this.apostasB = apostasB;
     this.apostasEmpate = apostasEmpate;
-    this.totalApostado = totalApostado;
+    this.totalApostadoA = totalApostadoA;
+    this.totalApostadoB = totalApostadoB;
   }
 
   public String getNomeTimeA() {
@@ -99,19 +101,27 @@ public class Jogo {
     this.apostasEmpate = apostasEmpate;
   }
 
-  public double getTotalApostado() {
-    return totalApostado;
+  public double getTotalApostadoA() {
+    return totalApostadoA;
   }
 
-  public void setTotalApostado(double totalApostado) {
-    this.totalApostado = totalApostado;
+  public void setTotalApostadoA(double totalApostadoA) {
+    this.totalApostadoA = totalApostadoA;
+  }
+
+  public double getTotalApostadoB() {
+    return totalApostadoB;
+  }
+
+  public void setTotalApostadoB(double totalApostadoB) {
+    this.totalApostadoB = totalApostadoB;
   }
 
   @Override
   public String toString() {
-    return String.format("%s, %s, %s, %s, %s, %s, %s, %s, %s, %s",
+    return String.format("%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s",
         nomeTimeA, nomeTimeB, data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")),
-        valorVitoriaA, valorVitoriaB, valorEmpate, apostasA, apostasB, apostasEmpate, totalApostado);
+        valorVitoriaA, valorVitoriaB, valorEmpate, apostasA, apostasB, apostasEmpate, totalApostadoA, totalApostadoB);
   }
 
 }

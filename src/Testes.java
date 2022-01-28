@@ -19,7 +19,7 @@ public class Testes {
         System.out.println(clientes);
 
         Database.addJogo(new Jogo("testeA", "testeB", LocalDateTime.of(2022, 01, 21,
-        15, 0, 0), 0.0, 0.0, 0.0, 0, 0, 0, 0));
+        15, 0, 0), 0.0, 0.0, 0.0, 0, 0, 0, 0, 0));
         Jogo jogo = Database.getJogoByNome("testeA", "testeB");
         System.out.println(jogo.getNomeTimeB());
         jogo.setNomeTimeB("B");
